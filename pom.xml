@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>7</version>
+    </parent>
+    
+    <packaging>jar</packaging>
+    <groupId>org.webjars</groupId>
+    <artifactId>angular-ui</artifactId>
+    <version>0.3.2-SNAPSHOT</version>
+    <name>AngularUI</name>
+    <description>WebJar for AngularUI</description>
+    <url>http://webjars.org</url>
+    
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <angularui.version>0.3.2</angularui.version>
+        <angularui.sourceUrl>https://github.com/angular-ui/angular-ui/tree/master/build</angularui.sourceUrl>
+        <base.dir>${project.build.outputDirectory}/META-INF/resources/webjars/${project.artifactId}/${angularui.version}</base.dir>
+        <js.dir>${base.dir}/js</js.dir>
+        <css.dir>${base.dir}/css</css.dir>
+    </properties>
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://github.com/angular-ui/angular-ui/blob/master/LICENSE</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    
+    <dependencies>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>angularjs</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>jquery</artifactId>
+            <version>1.8.2</version>
+        </dependency>
+    </dependencies>
+
+    <scm>
+        <url>http://github.com/webjars/angularjs</url>
+        <connection>scm:git:https://github.com/webjars/angularjs.git</connection>
+        <developerConnection>scm:git:https://github.com/webjars/angularjs.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
+    <developers>
+        <developer>
+            <id>mabuzer</id>
+            <name>Mohammad M. AbuZer</name>
+            <email>mabuzer@alz-inc.com</email>
+        </developer>
+    </developers>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>wagon-maven-plugin</artifactId>
+                <version>1.0-beta-4</version>
+                <executions>
+                    <execution>
+                        <id>download-full-js</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>download-single</goal>
+                        </goals>
+                        <configuration>
+                            <url>${angularui.sourceUrl}</url>
+                            <fromFile>angular-ui.js</fromFile>
+                            <toDir>${js.dir}</toDir>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>download-min-js</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>download-single</goal>
+                        </goals>
+                        <configuration>
+                            <url>${angularui.sourceUrl}</url>
+                            <fromFile>angular-ui.min.js</fromFile>
+                            <toDir>${js.dir}</toDir>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>download-full-css</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>download-single</goal>
+                        </goals>
+                        <configuration>
+                            <url>${angularui.sourceUrl}</url>
+                            <fromFile>angular-ui.css</fromFile>
+                            <toDir>${css.dir}</toDir>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>download-min-css</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>download-single</goal>
+                        </goals>
+                        <configuration>
+                            <url>${angularui.sourceUrl}</url>
+                            <fromFile>angular-ui.min.css</fromFile>
+                            <toDir>${css.dir}</toDir>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.3.2</version>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>release-sign-artifacts</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+                <property>
+                    <name>performRelease</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.4</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+</project>
