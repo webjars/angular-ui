@@ -11,7 +11,7 @@
     <packaging>jar</packaging>
     <groupId>org.webjars</groupId>
     <artifactId>angular-ui</artifactId>
-    <version>0.3.2-SNAPSHOT</version>
+    <version>0.3.2</version>
     <name>AngularUI</name>
     <description>WebJar for AngularUI</description>
     <url>http://webjars.org</url>
@@ -49,7 +49,7 @@
         <url>http://github.com/webjars/angular-ui</url>
         <connection>scm:git:https://github.com/webjars/angular-ui.git</connection>
         <developerConnection>scm:git:https://github.com/webjars/angular-ui.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>angular-ui-0.3.2</tag>
     </scm>
 
     <developers>
