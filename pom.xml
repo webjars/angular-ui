@@ -46,9 +46,9 @@
     </dependencies>
 
     <scm>
-        <url>http://github.com/webjars/angularjs</url>
-        <connection>scm:git:https://github.com/webjars/angularjs.git</connection>
-        <developerConnection>scm:git:https://github.com/webjars/angularjs.git</developerConnection>
+        <url>http://github.com/webjars/angular-ui</url>
+        <connection>scm:git:https://github.com/webjars/angular-ui.git</connection>
+        <developerConnection>scm:git:https://github.com/webjars/angular-ui.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
 
