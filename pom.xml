@@ -11,7 +11,7 @@
     <packaging>jar</packaging>
     <groupId>org.webjars</groupId>
     <artifactId>angular-ui</artifactId>
-    <version>0.3.3-SNAPSHOT</version>
+    <version>0.3.2-1-SNAPSHOT</version>
     <name>AngularUI</name>
     <description>WebJar for AngularUI</description>
     <url>http://webjars.org</url>
@@ -19,11 +19,10 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <angularui.version>0.3.2</angularui.version>
-        <angularui.sourceUrl>https://github.com/angular-ui/angular-ui/tree/master/build</angularui.sourceUrl>
-        <base.dir>${project.build.outputDirectory}/META-INF/resources/webjars/${project.artifactId}/${angularui.version}</base.dir>
-        <js.dir>${base.dir}/js</js.dir>
-        <css.dir>${base.dir}/css</css.dir>
+        <angularui.sourceUrl>https://github.com/angular-ui/angular-ui/archive</angularui.sourceUrl>
+        <destDir>${project.build.outputDirectory}/META-INF/resources/webjars/${project.artifactId}/${angularui.version}</destDir>
     </properties>
+
     <licenses>
         <license>
             <name>MIT License</name>
@@ -36,7 +35,7 @@
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>angularjs</artifactId>
-            <version>1.1.1</version>
+            <version>1.1.1-1</version>
         </dependency>
         <dependency>
             <groupId>org.webjars</groupId>
@@ -58,6 +57,11 @@
             <name>Mohammad M. AbuZer</name>
             <email>mabuzer@alz-inc.com</email>
         </developer>
+        <developer>
+            <id>jamesward</id>
+            <name>James Ward</name>
+            <email>james@jamesward.org</email>
+        </developer>
     </developers>
 
     <build>
@@ -68,51 +72,34 @@
                 <version>1.0-beta-4</version>
                 <executions>
                     <execution>
-                        <id>download-full-js</id>
                         <phase>process-resources</phase>
                         <goals>
                             <goal>download-single</goal>
                         </goals>
                         <configuration>
                             <url>${angularui.sourceUrl}</url>
-                            <fromFile>angular-ui.js</fromFile>
-                            <toDir>${js.dir}</toDir>
+                            <fromFile>v${angularui.version}.zip</fromFile>
+                            <toFile>${project.build.directory}/${project.artifactId}.zip</toFile>
                         </configuration>
                     </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.7</version>
+                <executions>
                     <execution>
-                        <id>download-min-js</id>
                         <phase>process-resources</phase>
-                        <goals>
-                            <goal>download-single</goal>
-                        </goals>
+                        <goals><goal>run</goal></goals>
                         <configuration>
-                            <url>${angularui.sourceUrl}</url>
-                            <fromFile>angular-ui.min.js</fromFile>
-                            <toDir>${js.dir}</toDir>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>download-full-css</id>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>download-single</goal>
-                        </goals>
-                        <configuration>
-                            <url>${angularui.sourceUrl}</url>
-                            <fromFile>angular-ui.css</fromFile>
-                            <toDir>${css.dir}</toDir>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>download-min-css</id>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>download-single</goal>
-                        </goals>
-                        <configuration>
-                            <url>${angularui.sourceUrl}</url>
-                            <fromFile>angular-ui.min.css</fromFile>
-                            <toDir>${css.dir}</toDir>
+                            <target>
+                                <echo message="unzip archive" />
+                                <unzip src="${project.build.directory}/${project.artifactId}.zip" dest="${project.build.directory}" />
+                                <echo message="moving resources" />
+                                <move todir="${destDir}">
+                                    <fileset dir="${project.build.directory}/angular-ui-${angularui.version}/build" />
+                                </move>
+                            </target>
                         </configuration>
                     </execution>
                 </executions>
