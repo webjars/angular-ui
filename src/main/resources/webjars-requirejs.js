@@ -1,8 +1,5 @@
-/*global requirejs */
-
-// Ensure any request for this webjar brings in jQuery.
 requirejs.config({
-    shim: {
-        'angular-ui': [ 'webjars!angular.js', 'webjars!jquery.js' ]
-    }
+    paths: { "angular-ui": webjars.path("angular-ui", "angular-ui") },
+    shim: { "angular-ui": [ "angular" ] }
 });
+
